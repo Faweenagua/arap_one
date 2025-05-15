@@ -33,9 +33,9 @@ To use this package please download all of the necessary dependencies first and 
 ```bash
 mkdir -p ros2_ws/src
 cd ros2_ws/src
-git clone https://github.com/adoodevv/diff_drive_robot.git
+git clone https://github.com/adoodevv/arapbot.git
 cd ..
-colcon build --packages-select diff_drive_robot --symlink-install
+colcon build --packages-select arapbot --symlink-install
 ```
 
 ### Launch Gazebo simulation together with Rviz
@@ -44,7 +44,7 @@ After sourcing ROS and this package we can launch the 2-wheeled differential dri
 
 ```bash
 source install/setup.bash
-ros2 launch diff_drive_robot robot.launch.py 
+ros2 launch arapbot robot.launch.py 
 ```
 
 ### Controlling the robot

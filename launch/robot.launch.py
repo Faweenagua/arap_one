@@ -10,7 +10,7 @@ from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, Grou
 def generate_launch_description():
 
     # Package name
-    package_name='diff_drive_robot'
+    package_name='arapbot'
 
     # Launch configurations
     world = LaunchConfiguration('world')
