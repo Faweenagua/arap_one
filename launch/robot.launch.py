@@ -17,7 +17,7 @@ def generate_launch_description():
     rviz = LaunchConfiguration('rviz')
 
     # Path to default world 
-    world_path = os.path.join(get_package_share_directory(package_name),'worlds', 'obstacles.world')
+    world_path = os.path.join(get_package_share_directory(package_name),'worlds', 'office_small.world')
 
     # Launch Arguments
     declare_world = DeclareLaunchArgument(
@@ -70,6 +70,22 @@ def generate_launch_description():
             '-p',
             f'config_file:={bridge_params}',]
     )
+
+    # Node to bridge camera image with image_transport and compressed_image_transport
+    gz_image_bridge_node = Node(
+        package="ros_gz_image",
+        executable="image_bridge",
+        arguments=[
+            "/camera/image",
+        ],
+        output="screen",
+        parameters=[
+            {'use_sim_time': LaunchConfiguration('use_sim_time'),
+             'camera.image.compressed.jpeg_quality': 75},
+        ],
+    )
+
+    
     
     # Launch Rviz with diff bot rviz file
     rviz_config_file = os.path.join(get_package_share_directory(package_name), 'rviz', 'bot.rviz')
@@ -82,17 +98,19 @@ def generate_launch_description():
                     output='screen',)]
     )
 
+
     # Launch them all!
     return LaunchDescription([
         # Declare launch arguments
         declare_rviz,
         declare_world,
-
+        
         # Launch the nodes
         rviz2,
         rsp,
         gazebo_server,
         gazebo_client,
         ros_gz_bridge,
+        gz_image_bridge_node,
         spawn_diff_bot
     ])
